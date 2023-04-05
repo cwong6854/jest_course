@@ -177,5 +177,22 @@ describe("test the recipes API", () => {
         })
       );
     });
+    it("it should not save new recipe to db, invalid token", async () => {
+      const recipes = {
+        name: "chicken nuggets",
+        difficulty: 2,
+        vegetarian: true,
+      };
+      const res = await request(app)
+        .post("/recipes")
+        .send(recipes)
+        .set(`Bearer Hjhfuww89412481mkf`);
+      expect(res.statusCode).toEqual(403);
+      expect(res.body).toEqual(
+        expect.objectContaining({
+          message: "Unauthorized",
+        })
+      );
+    });
   });
 });
