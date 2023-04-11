@@ -186,11 +186,46 @@ describe("test the recipes API", () => {
       const res = await request(app)
         .post("/recipes")
         .send(recipes)
-        .set(`Bearer Hjhfuww89412481mkf`);
+        .set("Authorization", `Bearer Hjhfuww89412481mkf`);
       expect(res.statusCode).toEqual(403);
       expect(res.body).toEqual(
         expect.objectContaining({
           message: "Unauthorized",
+        })
+      );
+    });
+  });
+  // test get all recipe
+  describe("GET/recipes", () => {
+    it("it should get all the recipes in the db", async () => {
+      const res = await request(app).get("/recipes");
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toEqual(
+        expect.objectContaining({
+          success: true,
+          data: expect.any(Object),
+        })
+      );
+    });
+  });
+  describe("GET/recipes/:id", () => {
+    it("Retrieve a specific recipe", async () => {
+      const res = await request(app).get(`/recipes/${id}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toEqual(
+        expect.objectContaining({
+          success: true,
+          data: expect.any(Object),
+        })
+      );
+    });
+    it("it should not retrieve any recipe from the db, invalid id passed", async () => {
+      const res = await request(app).get("/recipes/18FuegkehvmcidG2442");
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toEqual(
+        expect.objectContaining({
+          success: false,
+          message: "Recipe with id 18FuegkehvmcidG2442 does not exist",
         })
       );
     });
