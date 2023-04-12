@@ -11,10 +11,6 @@
     "seed:rollback": "node database/seed/index --rollback",
     "test": "cross-env DATABASE_URI=mongodb://localhost:27017/recipe_app_test jest --collectCoverage --forceExit --detectOpenHandles"
   },
-  "pre-push": [
-    "lint",
-    "test"
-  ],
   "jest": {
     "testEnvironment": "node"
   },
