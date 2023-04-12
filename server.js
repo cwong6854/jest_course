@@ -1,4 +1,4 @@
-const app = requre("./index");
+const app = require("./index");
 require("dotenv");
 
 const config = {

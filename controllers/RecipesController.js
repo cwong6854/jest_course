@@ -1,4 +1,4 @@
-const Recipes = require('../database/services/recipes');
+const Recipes = require("../database/services/recipes");
 
 const RecipesController = {
   // Retrieve and return all recipes from the database.
@@ -13,40 +13,38 @@ const RecipesController = {
     } catch (err) {
       return res.status(500).send({
         success: false,
-        message: 'Some error occurred while retrieving recipes.',
+        message: "Some error occurred while retrieving recipes.",
       });
     }
   },
 
   // Create and Save a new Recipes
   create: async (req, res) => {
-    console.log('create')
+    console.log("create");
     try {
       // define variables
-      const {
-        name, difficulty, vegetarian,
-      } = req.body;
+      const { name, difficulty, vegetarian } = req.body;
 
       // validate vegetarian
-      if (typeof vegetarian !== 'boolean') {
+      if (typeof vegetarian !== "boolean") {
         return res.status(400).send({
           success: false,
-          message: 'vegetarian field should be boolean',
+          message: "vegetarian field should be boolean",
         });
       }
       // validate name
       if (!req.body.name) {
         return res.status(400).send({
           success: false,
-          message: 'name field can not be empty',
+          message: "name field can not be empty",
         });
       }
 
       // validate difficulty
-      if ((typeof difficulty !== 'number') || (difficulty <= 0) || (difficulty > 3)) {
+      if (typeof difficulty !== "number" || difficulty <= 0 || difficulty > 3) {
         return res.status(400).send({
           success: false,
-          message: 'difficulty field should be a number',
+          message: "difficulty field should be a number",
         });
       }
 
@@ -66,7 +64,7 @@ const RecipesController = {
     } catch (err) {
       return res.status(500).send({
         success: false,
-        message: 'Failed to save recipes!',
+        message: "Failed to save recipes!",
       });
     }
   },
@@ -92,35 +90,40 @@ const RecipesController = {
     } catch (err) {
       return res.status(500).send({
         success: false,
-        message: 'Some error occurred while retrieving recipe details.',
+        message: "Some error occurred while retrieving recipe details.",
       });
     }
   },
 
   // Update the recipes identified by the parameter
   update: async (req, res) => {
-    console.log('update');
+    console.log("update");
     try {
       // check if req body is empty
       if (Object.keys(req.body).length === 0) {
         return res.status(400).send({
           success: false,
-          message: 'field should not be empty',
+          message: "field should not be empty",
         });
       }
 
       // validate difficulty if it exist
-      if ((req.body.difficulty) && ((typeof req.body.difficulty !== 'number') || (req.body.difficulty <= 0) || (req.body.difficulty > 3))) {
+      if (
+        req.body.difficulty &&
+        (typeof req.body.difficulty !== "number" ||
+          req.body.difficulty <= 0 ||
+          req.body.difficulty > 3)
+      ) {
         return res.status(400).send({
           success: false,
-          message: 'difficulty field should be a number',
+          message: "difficulty field should be a number",
         });
       }
       // validate vegetarian if it exist
-      if ((req.body.vegetarian) && (typeof req.body.vegetarian !== 'boolean')) {
+      if (req.body.vegetarian && typeof req.body.vegetarian !== "boolean") {
         return res.status(400).send({
           success: false,
-          message: 'vegetarian field should be boolean',
+          message: "vegetarian field should be boolean",
         });
       }
 
@@ -145,7 +148,7 @@ const RecipesController = {
     } catch (err) {
       return res.status(500).send({
         success: false,
-        message: 'An error occured while updating recipe',
+        message: "An error occured while updating recipe",
       });
     }
   },
@@ -161,12 +164,12 @@ const RecipesController = {
 
       return res.status(200).send({
         success: true,
-        message: 'Recipe successfully deleted',
+        message: "Recipe successfully deleted",
       });
     } catch (err) {
       return res.status(500).send({
         success: false,
-        message: 'An error occured while deleting recipe',
+        message: "An error occured while deleting recipe",
       });
     }
   },
